@@ -1,6 +1,7 @@
 import './App.css';
 
 import * as React from 'react';
+
 import { Button, CardColumns, Col, Container, Form, FormControl, Nav, Navbar, Row } from 'react-bootstrap';
 
 import { Dog } from './Dog';
@@ -24,8 +25,6 @@ class App extends React.Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
             </Nav>
             <Form inline>
               <FormControl type="text" placeholder="Search" className="mr-sm-2" />
