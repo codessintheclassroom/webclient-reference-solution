@@ -1,28 +1,26 @@
 import './App.css';
 
-import { Button, Card, CardColumns, Col, Container, Form, FormControl, Nav, NavDropdown, Navbar, Row } from 'react-bootstrap';
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Button, CardColumns, Col, Container, Form, FormControl, Nav, Navbar, Row } from 'react-bootstrap';
 
-import logo from './logo.svg';
+import { Dog } from './Dog';
 
-class App extends Component {
+// TODO replace this with actual data fetched from backend
+var mockedPets = [
+  { name: "Fido", description: "Barks a lot at night" },
+  { name: "Brandy", description: "Enjoys long strolls on the beach" },
+  { name: "Priscilla", description: "Fussy but very well behaved" },
+  { name: "Berty", description: "Has a good nose for truffles" },
+  { name: "Argo", description: "A superhero (in dogs' world)" },
+  { name: "Fred", description: "He has opinions about sausages" },
+]
+
+class App extends React.Component {
   render() {
-    const card = 
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Vorderkoerpertiefstellung_THWZ.jpg" />
-        <Card.Body>
-          <Card.Title>Fido</Card.Title>
-          <Card.Text>
-            Fido likes long walks on the beach, and fetching sticks.
-          </Card.Text>
-          <Button variant="primary">Adopt Fido</Button>
-        </Card.Body>
-      </Card>
-
     return (
       <div className="App">
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">adopt-a-pet.com</Navbar.Brand>
+          <Navbar.Brand href="/">Pet Shelter</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -39,12 +37,10 @@ class App extends Component {
           <Row>
             <Col>
               <CardColumns>
-                {card}
-                {card}
-                {card}
-                {card}
-                {card}
-                {card}
+                {mockedPets.map((pet) => {
+                  // key prop is required, see: https://reactjs.org/docs/lists-and-keys.html#keys
+                  return <Dog key={pet.name} name={pet.name} description={pet.description} />
+                })}
               </CardColumns>
             </Col>
           </Row>
