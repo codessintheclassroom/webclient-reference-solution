@@ -24,5 +24,5 @@ steps:
 - script: |
     npm install
     npm run build
-    npm test
+    CI=true npm test
   displayName: 'npm install, build and test'
