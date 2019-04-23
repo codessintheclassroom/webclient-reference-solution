@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import { CardColumns, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 
-import { Pet } from './Pet';
+import { PetCard } from './PetCard';
 import { PetV1 } from './model/petV1';
 
 
@@ -25,7 +25,7 @@ class App extends React.Component {
       .then(data => {
         let retrievedPets = data.map((pet: PetV1) => {
           return (
-            <Pet key={pet.id} name={pet.name} description={pet.description === undefined ? "" : pet.description} />
+            <PetCard key={pet.id} pet={pet} />
           );
         });
         this.setState({ pets: retrievedPets });

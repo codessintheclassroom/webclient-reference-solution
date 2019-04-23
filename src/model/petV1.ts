@@ -14,7 +14,7 @@ export interface PetV1 {
     /**
      * The unique ID of the pet in our database.
      */
-    readonly id?: string;
+    readonly id: string;
     /**
      * The pet's given name, used to call it for cuddles and petting.
      */
