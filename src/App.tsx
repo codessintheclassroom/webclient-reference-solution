@@ -5,18 +5,33 @@ import * as React from 'react';
 import { CardColumns, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 
 import { Pet } from './Pet';
+import { PetV1 } from './model/petV1';
 
-// TODO replace this with actual data fetched from backend
-var mockedPets = [
-  { name: "Fido", description: "Barks a lot at night" },
-  { name: "Brandy", description: "Enjoys long strolls on the beach" },
-  { name: "Priscilla", description: "Fussy but very well behaved" },
-  { name: "Berty", description: "Has a good nose for truffles" },
-  { name: "Argo", description: "A superhero (in dogs' world)" },
-  { name: "Fred", description: "He has opinions about sausages" },
-]
 
 class App extends React.Component {
+
+  state = {
+    pets: []
+  }
+
+  componentDidMount() {
+    fetch(`http://private-f4006-codessintheclassroomshelter.apiary-mock.com/api/v1/pets`)
+      .then(response => {
+        if (response.status >= 300) {
+          throw new Error(`HTTP Error ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        let retrievedPets = data.map((pet: PetV1) => {
+          return (
+            <Pet key={pet.id} name={pet.name} description={pet.description === undefined ? "" : pet.description} />
+          );
+        });
+        this.setState({ pets: retrievedPets });
+      });
+  }
+
   render() {
     return (
       <div className="App">
@@ -32,10 +47,9 @@ class App extends React.Component {
           <Row>
             <Col>
               <CardColumns>
-                {mockedPets.map((pet) => {
-                  // key prop is required, see: https://reactjs.org/docs/lists-and-keys.html#keys
-                  return <Pet key={pet.name} name={pet.name} description={pet.description} />
-                })}
+                {
+                  this.state.pets
+                }
               </CardColumns>
             </Col>
           </Row>
