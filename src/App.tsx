@@ -2,7 +2,7 @@ import './App.css';
 
 import * as React from 'react';
 
-import { Button, CardColumns, Col, Container, Form, FormControl, Nav, Navbar, Row } from 'react-bootstrap';
+import { CardColumns, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 
 import { Pet } from './Pet';
 
@@ -26,10 +26,6 @@ class App extends React.Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
             </Nav>
-            <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-              <Button variant="outline-success">Search</Button>
-            </Form>
           </Navbar.Collapse>
         </Navbar>
         <Container>
