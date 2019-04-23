@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import { Button, CardColumns, Col, Container, Form, FormControl, Nav, Navbar, Row } from 'react-bootstrap';
 
-import { Dog } from './Dog';
+import { Pet } from './Pet';
 
 // TODO replace this with actual data fetched from backend
 var mockedPets = [
@@ -38,7 +38,7 @@ class App extends React.Component {
               <CardColumns>
                 {mockedPets.map((pet) => {
                   // key prop is required, see: https://reactjs.org/docs/lists-and-keys.html#keys
-                  return <Dog key={pet.name} name={pet.name} description={pet.description} />
+                  return <Pet key={pet.name} name={pet.name} description={pet.description} />
                 })}
               </CardColumns>
             </Col>

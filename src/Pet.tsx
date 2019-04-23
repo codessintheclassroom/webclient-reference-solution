@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, Button } from "react-bootstrap";
 
-export const Dog = (props: {name : string, description: string}) => {
+export const Pet = (props: {name : string, description: string}) => {
     return (
         <Card style={{ width: '18rem' }}>
         <Card.Img variant="top" src={"https://source.unsplash.com/collection/212527/200x200/?sig=" + Math.floor(Math.random() * 100)} />
