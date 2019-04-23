@@ -15,8 +15,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // non mocked API URL: https://codess-shelter.azurewebsites.net/api/v1/pets
-    fetch(`http://private-f4006-codessintheclassroomshelter.apiary-mock.com/api/v1/pets`)
+    // mocked API: http://private-f4006-codessintheclassroomshelter.apiary-mock.com/api/v1/pets
+    fetch(`https://codess-shelter.azurewebsites.net/api/v1/pets`)
       .then(response => {
         if (response.status >= 300) {
           throw new Error(`HTTP Error ${response.statusText}`);
