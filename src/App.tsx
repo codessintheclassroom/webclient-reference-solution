@@ -2,7 +2,7 @@ import './App.css';
 
 import * as React from 'react';
 
-import { CardColumns, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
+import { CardColumns, Col, Container, Row } from 'react-bootstrap';
 
 import { PetCard } from './PetCard';
 import { PetV1 } from './model/petV1';
@@ -15,6 +15,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // non mocked API URL: https://codess-shelter.azurewebsites.net/api/v1/pets
     fetch(`http://private-f4006-codessintheclassroomshelter.apiary-mock.com/api/v1/pets`)
       .then(response => {
         if (response.status >= 300) {
@@ -35,14 +36,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Pet Shelter</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+      <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 className="display-4">Pet Shelter</h1>
+        <p className="lead">Welcome to our pet shelter! <br /> 
+        We have plenty of furry friends that await your love and care.</p>
+      </div>
         <Container>
           <Row>
             <Col>
