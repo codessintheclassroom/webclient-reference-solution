@@ -1,6 +1,8 @@
 import 'react-testing-library/cleanup-after-each';
 import 'jest-dom/extend-expect';
 
+import * as React from 'react';
+
 import { PetCard } from '../PetCard';
 import { render } from 'react-testing-library';
 import { PetV1 } from '../model/petV1';
@@ -18,17 +20,17 @@ const petMock : PetV1 = {
 
 describe('Pet', () => {
     it('should render the given name', () => {
-        const { getByText } = render(PetCard({ pet: petMock }));
+        const { getByText } = render(<PetCard pet={petMock}/>);
         expect(getByText('Fido')).toBeInTheDocument();
     });
 
     it('should render the given description', () => {
-        const { getByText } = render(PetCard({ pet: petMock }));
+        const { getByText } = render(<PetCard pet={petMock}/>);
         expect(getByText(petMock.description!)).toBeInTheDocument();
     });
 
     it('should render the adopt button', () => {
-        const { getByText } = render(PetCard({ pet: petMock }));
+        const { getByText } = render(<PetCard pet={petMock}/>);
         expect(getByText('Adopt')).toBeInTheDocument();
     });
 });
