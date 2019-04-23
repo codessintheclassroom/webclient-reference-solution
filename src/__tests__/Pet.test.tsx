@@ -1,7 +1,7 @@
 import 'react-testing-library/cleanup-after-each';
 import 'jest-dom/extend-expect';
 
-import { Pet } from './Pet';
+import { Pet } from '../Pet';
 import { render } from 'react-testing-library';
 
 describe('Pet', () => {
