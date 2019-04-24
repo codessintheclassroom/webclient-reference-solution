@@ -24,12 +24,7 @@ class App extends React.Component {
         return response.json();
       })
       .then(data => {
-        let retrievedPets = data.map((pet: PetV1) => {
-          return (
-            <PetCard key={pet.id} pet={pet} />
-          );
-        });
-        this.setState({ pets: retrievedPets });
+        this.setState({ pets: data });
       });
   }
 
@@ -46,7 +41,11 @@ class App extends React.Component {
             <Col>
               <CardColumns>
                 {
-                  this.state.pets
+                  this.state.pets.map((pet: PetV1) => {
+                    return (
+                      <PetCard key={pet.id} pet={pet} />
+                    );
+                  })
                 }
               </CardColumns>
             </Col>
