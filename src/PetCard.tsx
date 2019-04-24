@@ -72,7 +72,7 @@ export class PetCard extends React.Component<PetCardProps, PetCardState> {
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="email" placeholder="Enter email" 
                                 name="email" 
-                                value={this.state.email} 
+                                value={email} 
                                 onChange={(e: React.FormEvent<FormControl>) =>
                                     this.setState({ email: (e.currentTarget as unknown as HTMLFormElement).value })}/>
                             </Form.Group>
@@ -80,7 +80,7 @@ export class PetCard extends React.Component<PetCardProps, PetCardState> {
                                 <Form.Label>Message</Form.Label>
                                 <Form.Control as="textarea" rows="3" placeholder="Enter your message" 
                                 name="message" 
-                                value={this.state.message} 
+                                value={message} 
                                 onChange={(e: React.FormEvent<FormControl>) =>
                                     this.setState({ message: (e.currentTarget as unknown as HTMLFormElement).value })}
                                 />
