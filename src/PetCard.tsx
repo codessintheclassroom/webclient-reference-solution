@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Form, FormControl } from "react-bootstrap";
 import { PetV1 } from './model/petV1';
 import { Modal } from 'react-bootstrap';
 
@@ -11,7 +11,10 @@ type PetCardProps = {
 
 type PetCardState = {
     showModal: boolean,
-    pet: PetV1
+    pet: PetV1,
+    name: string,
+    email: string,
+    message: string
 }
 
 export class PetCard extends React.Component<PetCardProps, PetCardState> {
@@ -19,7 +22,10 @@ export class PetCard extends React.Component<PetCardProps, PetCardState> {
         super(props);
         this.state = {
             showModal: false,
-            pet: props.pet
+            pet: props.pet,
+            name: "",
+            email: "",
+            message: ""
         }
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -34,6 +40,7 @@ export class PetCard extends React.Component<PetCardProps, PetCardState> {
     }
 
     render() {
+        const { name, email, message } = this.state;
         return (
             <>
                 <Card style={{ width: '18rem' }}>
@@ -49,26 +56,44 @@ export class PetCard extends React.Component<PetCardProps, PetCardState> {
                         <Modal.Title>Adopt {this.state.pet.name}</Modal.Title>
                     </Modal.Header>
                     <Form>
-                    <Modal.Body>
-                        Thanks for your interest in adopting {this.state.pet.name}!
-                        Please fill out this form to submit an adoption enquiry.
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control placeholder="Enter your full name" />
-                        </Form.Group>
-                        <Form.Group controlId="inquiryForm">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
-                        </Form.Group>                        
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            Cancel
+                        <Modal.Body>
+                            Thanks for your interest in adopting {this.state.pet.name}!
+                            Please fill out this form to submit an adoption enquiry.
+                        <Form.Group controlId="nameControlId">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control placeholder="Enter your full name"
+                                    name="name"
+                                    value={name}
+                                    onChange={(e: React.FormEvent<FormControl>) =>
+                                        this.setState({ name: (e.currentTarget as unknown as HTMLFormElement).value })}
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="emailControlId">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" 
+                                name="email" 
+                                value={this.state.email} 
+                                onChange={(e: React.FormEvent<FormControl>) =>
+                                    this.setState({ email: (e.currentTarget as unknown as HTMLFormElement).value })}/>
+                            </Form.Group>
+                            <Form.Group controlId="messageControlId">
+                                <Form.Label>Message</Form.Label>
+                                <Form.Control as="textarea" rows="3" placeholder="Enter your message" 
+                                name="message" 
+                                value={this.state.message} 
+                                onChange={(e: React.FormEvent<FormControl>) =>
+                                    this.setState({ message: (e.currentTarget as unknown as HTMLFormElement).value })}
+                                />
+                            </Form.Group>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={this.handleClose}>
+                                Cancel
                         </Button>
-                        <Button variant="primary" type="submit" onClick={this.handleClose}>
-                            Submit inquiry
+                            <Button variant="primary" type="submit" onClick={this.handleClose}>
+                                Submit inquiry
                         </Button>
-                    </Modal.Footer>
+                        </Modal.Footer>
                     </Form>
                 </Modal>
             </>
