@@ -2,44 +2,51 @@ import './App.css';
 
 import * as React from 'react';
 
-import { Button, CardColumns, Col, Container, Form, FormControl, Nav, Navbar, Row } from 'react-bootstrap';
+import { CardColumns, Col, Container, Row } from 'react-bootstrap';
 
-import { Dog } from './Dog';
+import { PetCard } from './PetCard';
+import { PetV1 } from './model/petV1';
 
-// TODO replace this with actual data fetched from backend
-var mockedPets = [
-  { name: "Fido", description: "Barks a lot at night" },
-  { name: "Brandy", description: "Enjoys long strolls on the beach" },
-  { name: "Priscilla", description: "Fussy but very well behaved" },
-  { name: "Berty", description: "Has a good nose for truffles" },
-  { name: "Argo", description: "A superhero (in dogs' world)" },
-  { name: "Fred", description: "He has opinions about sausages" },
-]
 
 class App extends React.Component {
+
+  state = {
+    pets: []
+  }
+
+  componentDidMount() {
+    // mocked API: http://private-f4006-codessintheclassroomshelter.apiary-mock.com/api/v1/pets
+    fetch(`https://codess-shelter.azurewebsites.net/api/v1/pets`)
+      .then(response => {
+        if (response.status >= 300) {
+          throw new Error(`HTTP Error ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        this.setState({ pets: data });
+      });
+  }
+
   render() {
     return (
       <div className="App">
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Pet Shelter</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-            </Nav>
-            <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-              <Button variant="outline-success">Search</Button>
-            </Form>
-          </Navbar.Collapse>
-        </Navbar>
+      <div className="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 className="display-4">Pet Shelter</h1>
+        <p className="lead">Welcome to our pet shelter! <br /> 
+        We have plenty of furry friends that await your love and care.</p>
+      </div>
         <Container>
           <Row>
             <Col>
               <CardColumns>
-                {mockedPets.map((pet) => {
-                  // key prop is required, see: https://reactjs.org/docs/lists-and-keys.html#keys
-                  return <Dog key={pet.name} name={pet.name} description={pet.description} />
-                })}
+                {
+                  this.state.pets.map((pet: PetV1) => {
+                    return (
+                      <PetCard key={pet.id} pet={pet} />
+                    );
+                  })
+                }
               </CardColumns>
             </Col>
           </Row>
