@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Card, Button, Form, FormControl, Alert } from "react-bootstrap";
 import { PetV1 } from './model/petV1';
+import { InquiryV1 } from './model/inquiryV1';
 import { Modal } from 'react-bootstrap';
 
 const defaultPic: string = "https://en.wikipedia.org/wiki/Dog#/media/File:Golden_retriever_eating_pigs_foot.jpg";
@@ -16,7 +17,7 @@ type PetCardState = {
     email: string,
     message: string,
     formState: string,
-    inquiryId: string
+    inquiryId?: string
 }
 
 export class PetCard extends React.Component<PetCardProps, PetCardState> {
@@ -46,35 +47,35 @@ export class PetCard extends React.Component<PetCardProps, PetCardState> {
 
     submitInquiry(event: any) {
         event.preventDefault();
+        var inquiry: InquiryV1 = {
+            petId: this.state.pet.id,
+            name: this.state.name,
+            email: this.state.email,
+            message: this.state.message
+        };
         fetch(`https://codess-shelter.azurewebsites.net/api/v1/inquiries`, {
             method: "POST",
             mode: "cors",
             cache: "no-cache", 
-            credentials: "same-origin",
+            credentials: "omit",
             headers: {
                 "Content-Type": "application/json",
             },
             redirect: "follow",
             referrer: "no-referrer",
-            body: JSON.stringify(
-                {
-                    petId: this.state.pet.id,
-                    name: this.state.name,
-                    email: this.state.email,
-                    message: this.state.message
-                }), 
+            body: JSON.stringify(inquiry), 
         }).then(response => {
             if (response.status !== 201) {
-                console.log(response.json())
+                //console.log(response.json())
                 this.setState({ formState: "error" });
                 throw new Error(`HTTP Error ${response.statusText}`);
             }
             return response.json();
         }
-        ).then(data => {
+        ).then((data: InquiryV1) => {
             //console.log(data);
             this.setState({
-                inquiryId: (data as any).id,
+                inquiryId: data.id,
                 formState: "success"
             });
         })
